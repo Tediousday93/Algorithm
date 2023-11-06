@@ -9,8 +9,8 @@ for n in input {
     }
 }
 
-let sixNine = occur.remove(at: 6)
-let sixNineSet = (sixNine / 2) + (sixNine % 2)
+let sixNineSet = (occur[6] / 2) + (occur[6] % 2)
+occur[6] = sixNineSet
 let setNum = occur.max()!
 
-print(max(sixNineSet, setNum))
+print(setNum)
