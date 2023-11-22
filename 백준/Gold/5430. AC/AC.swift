@@ -8,11 +8,11 @@ for _ in 0..<t {
 print(result)
 
 func test() -> String {
-    let p = readLine()!.map { String($0) }
+    let p = readLine()!
     let _ = readLine()
     let arr = readLine()!
         .split { ["[", ",", "]"].contains($0) }
-        .compactMap { Int(String($0)) }
+        
     let tp: TPArr = .init(arr: arr)
     
     for cmd in p {
@@ -37,12 +37,12 @@ func test() -> String {
     
     if tp.isReversed {
         for idx in stride(from: tp.tail-1, through: tp.head, by: -1) {
-            result += String(tp.arr[idx]) + ","
+            result += tp.arr[idx] + ","
         }
         result.removeLast()
     } else {
         for idx in stride(from: tp.head, to: tp.tail, by: 1) {
-            result += String(tp.arr[idx]) + ","
+            result += tp.arr[idx] + ","
         }
         result.removeLast()
     }
@@ -52,23 +52,18 @@ func test() -> String {
 }
 
 final class TPArr {
-    var arr: [Int] = []
+    var arr: [Substring] = []
     var head: Int = 0
     var tail: Int = 0
     var isReversed: Bool = false
     
-    init(arr: [Int]) {
+    init(arr: [Substring]) {
         self.arr = arr
         self.tail = arr.count
     }
 
     var isEmpty: Bool {
         head >= tail
-    }
-    
-    func push(x: Int) {
-        arr.append(x)
-        tail += 1
     }
     
     func D() {
