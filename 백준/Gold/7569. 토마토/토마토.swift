@@ -21,7 +21,7 @@ final class Queue<T> {
 }
 
 func solution() {
-    let mnh = readLine()!.split(separator: " ").compactMap { Int(String($0)) }
+    let mnh = readLine()!.split(separator: " ").compactMap { Int($0) }
     let m = mnh[0]
     let n = mnh[1]
     let h = mnh[2]
@@ -31,13 +31,13 @@ func solution() {
                          count: n),
         count: h
     )
-    var Q: Queue<(Int, Int, Int)> = .init(
-        arr: .init(repeating: (-1, -1, -1), count: 10000005)
+    let Q: Queue<(Int, Int, Int)> = .init(
+        arr: .init(repeating: (-1, -1, -1), count: m*n*h + 5)
     )
     for z in 0..<h {
         var box: [[Int]] = []
         for y in 0..<n {
-            let list = readLine()!.split(separator: " ").compactMap { Int(String($0)) }
+            let list = readLine()!.split(separator: " ").compactMap { Int($0) }
             box.append(list)
             for x in 0..<m {
                 if list[x] == 1 {
