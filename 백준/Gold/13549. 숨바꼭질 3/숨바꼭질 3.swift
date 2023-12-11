@@ -19,20 +19,24 @@ let Q: Queue<Int> = .init()
 time[n] = 0
 Q.push(n)
 
-while time[k] == -1 {
-    let cur = Q.front
-    Q.pop()
-    let dx = [cur * 2, cur - 1, cur + 1]
-    for i in 0...2 {
-        let nx = dx[i]
-        if !(0...200006 ~= nx) || time[nx] != -1 { continue }
-        if i != 0 {
-            time[nx] = time[cur] + 1
-        } else {
-            time[nx] = time[cur]
+if n >= k {
+    print(n-k)
+} else {
+    while time[k] == -1 {
+        let cur = Q.front
+        Q.pop()
+        let dx = [cur * 2, cur - 1, cur + 1]
+        for i in 0...2 {
+            let nx = dx[i]
+            if !(0...200006 ~= nx) || time[nx] != -1 { continue }
+            if i != 0 {
+                time[nx] = time[cur] + 1
+            } else {
+                time[nx] = time[cur]
+            }
+            Q.push(nx)
         }
-        Q.push(nx)
     }
-}
 
-print(time[k])
+    print(time[k])
+}
