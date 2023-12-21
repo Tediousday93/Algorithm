@@ -1,32 +1,17 @@
-let n = Int(readLine()!)!
-var cur: [String] = ["  *  ", " * * ", "*****"]
-var prev: [String] = []
-var space: String = "   "
+let N = Int(readLine()!)!
 
-func drawStar(h: Int) {
-    if h == n {
-        for i in 0..<h/2 {
-            print(space + cur[i] + space)
-        }
-        for i in 0..<h/2 {
-            print(cur[i] + " " + cur[i])
-        }
-        return
-    }
+func recursive(n: Int) -> [String] {
+    if n == 3 { return ["  *  ", " * * ", "*****"] }
     
-    prev = cur
-    cur = []
-    for i in 0..<h/2 {
-        cur.append(space + prev[i] + space)
-    }
-    for i in 0..<h/2 {
-        cur.append(prev[i] + " " + prev[i])
-    }
-    space += space
-    drawStar(h: 2*h)
+    let cell = recursive(n: n/2)
+    let space = String(repeating: " ", count: n/2)
+    var newCell = [String]()
+    
+    cell.forEach { newCell.append(space + $0 + space) }
+    cell.forEach { newCell.append($0 + " " + $0) }
+    
+    return newCell
 }
 
-switch n {
-  case 3: print("  *  \n * * \n*****")
-  default: drawStar(h: 6)
-}
+let stars = recursive(n: N)
+print(stars.joined(separator: "\n"))
