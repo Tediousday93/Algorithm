@@ -2,7 +2,6 @@ let ns = readLine()!.split(separator: " ").compactMap { Int($0) }
 let n = ns[0]
 let s = ns[1]
 var count: Int = 0
-var sum: Int = 0
 var arr: [Int] = readLine()!.split(separator: " ").compactMap { Int($0) }
 
 func solution(k: Int, sum: Int) {
