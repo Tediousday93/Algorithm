@@ -1,20 +1,6 @@
 let n = Int(readLine()!)!
 var dict: [Int: Int] = [:]
 for _ in 0..<n {
-    let num = Int(readLine()!)!
-    if let count = dict[num] {
-        dict[num] = count + 1
-    } else {
-        dict[num] = 1
-    }
+    dict[Int(readLine()!)!, default: 0] += 1
 }
-
-let max = dict.max { lhs, rhs in
-    var result = lhs.value < rhs.value
-    if lhs.value == rhs.value {
-        result = lhs.key > rhs.key
-    }
-    return result
-}
-
-print(max!.key)
+print(dict.max(by: { $0.value != $1.value ? $0.value < $1.value : $0.key > $1.key })!.key)
