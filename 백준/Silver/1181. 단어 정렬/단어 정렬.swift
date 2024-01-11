@@ -6,12 +6,12 @@ for _ in 0..<N {
     list.insert(input)
 }
 
-let ans = Array(list).sorted(by: { lhs, rhs in
-    if lhs.count != rhs.count {
-        return lhs.count < rhs.count
-    } else {
-        return lhs < rhs
-    }
-}).joined(separator: "\n")
+let tuples = Array(list).map { ($0.count, $0) }
+let ans = tuples
+    .sorted(by: { lhs, rhs in
+        lhs.0 != rhs.0 ? (lhs.0 < rhs.0) : (lhs < rhs)
+    })
+    .map { $0.1 }
+    .joined(separator: "\n")
 
 print(ans)
