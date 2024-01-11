@@ -15,20 +15,12 @@ for i in 0..<n {
 }
 
 var ans: String = ""
-var sortedKeys = occurs.sorted(by: {
-    if $0.value != $1.value {
-        return $0.value > $1.value
-    } else {
-        return orders[$0.key]! < orders[$1.key]!
+occurs.sorted { $0.value != $1.value ? ($0.value > $1.value) : (orders[$0.key]! < orders[$1.key]!) }
+    .map { $0.key }
+    .forEach {
+        for _ in 0..<occurs[$0]! {
+            ans += $0 + " "
+        }
     }
-    
-}).map { $0.key }
 
-for key in sortedKeys {
-    for _ in 0..<occurs[key]! {
-        ans += key + " "
-    }
-}
-
-ans.removeLast()
 print(ans)
