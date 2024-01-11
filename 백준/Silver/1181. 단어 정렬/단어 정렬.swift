@@ -6,12 +6,12 @@ for _ in 0..<N {
     list.insert(input)
 }
 
-var sorted = Array.init(list).sorted { lhs, rhs in
+let ans = Array(list).sorted(by: { lhs, rhs in
     if lhs.count != rhs.count {
         return lhs.count < rhs.count
     } else {
         return lhs < rhs
     }
-}
+}).joined(separator: "\n")
 
-print(sorted.joined(separator: "\n"))
+print(ans)
