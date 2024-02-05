@@ -14,7 +14,7 @@ for pointIndex in 0..<coinCount {
     let currentPoint = coinPoints[pointIndex]
 
     for dpIndex in stride(from: currentPoint, through: targetSum, by: 1) {
-        guard Int.max - dp[dpIndex] - dp[dpIndex - currentPoint] > 0 else {
+        guard Int.max - dp[dpIndex - currentPoint] > dp[dpIndex] else {
             continue
         }
         dp[dpIndex] += dp[dpIndex - currentPoint]
