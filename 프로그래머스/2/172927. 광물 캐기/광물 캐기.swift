@@ -1,33 +1,34 @@
 import Foundation
+
+enum Mineral: String {
+    case diamond
+    case iron
+    case stone
+}
+
+enum Pick: CaseIterable {
+    case diamond
+    case iron
+    case stone
+    
+    var fatigue: (Int, Int, Int) {
+        switch self {
+            case .diamond: return (1, 1, 1)
+            case .iron: return (5, 1, 1)
+            case .stone: return (25, 5, 1)
+        }
+    }
+    
+    func getFatigue(for mineral: Mineral) -> Int {
+        switch mineral {
+            case .diamond: return self.fatigue.0
+            case .iron: return self.fatigue.1
+            case .stone: return self.fatigue.2
+        }
+    }
+}
+
 func solution(_ picks:[Int], _ minerals:[String]) -> Int {
-    enum Mineral: String {
-        case diamond
-        case iron
-        case stone
-    }
-    
-    enum Pick {
-        case diamond
-        case iron
-        case stone
-        
-        var fatigue: (Int, Int, Int) {
-            switch self {
-                case .diamond: return (1, 1, 1)
-                case .iron: return (5, 1, 1)
-                case .stone: return (25, 5, 1)
-            }
-        }
-        
-        func getFatigue(for mineral: Mineral) -> Int {
-            switch mineral {
-                case .diamond: return self.fatigue.0
-                case .iron: return self.fatigue.1
-                case .stone: return self.fatigue.2
-            }
-        }
-    }
-    
     var remainingPicks: [Int] = picks
     var fatigues: [Int] = []
     var backTrackingResult: [Int] = []
@@ -38,16 +39,12 @@ func solution(_ picks:[Int], _ minerals:[String]) -> Int {
             return
         }
         
-        for pickIndex in 0...2 {
-            var pick: Pick = .diamond
-            
-            switch pickIndex {
-            case 1:
-                pick = .iron
-            case 2:
-                pick = .stone
-            default:
-                break
+        for pick in Pick.allCases {
+            var pickIndex = 0
+            switch pick {
+            case .diamond: break
+            case .iron: pickIndex = 1
+            case .stone: pickIndex = 2
             }
             
             if remainingPicks[pickIndex] > 0 {
