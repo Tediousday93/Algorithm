@@ -5,8 +5,6 @@ var isPrime: [Bool] = .init(repeating: true, count: n+1)
 isPrime[0] = false
 isPrime[1] = false
 
-var primeNumbers: [Int] = []
-
 var index: Int = 2
 while index * index <= n {
     if !isPrime[index] {
@@ -14,21 +12,15 @@ while index * index <= n {
         continue
     }
 
-    var multipleIndex = index * index
-    while multipleIndex <= n {
+    for multipleIndex in stride(from: index * index, through: n, by: index) {
         isPrime[multipleIndex] = false
-        multipleIndex += index
     }
 
     index += 1
 }
 
-for (number, isPrime) in isPrime.enumerated() {
-    if isPrime { primeNumbers.append(number) }
+var ans = ""
+for number in m...n {
+    if isPrime[number] { ans += String(number) + "\n" }
 }
-
-let ans = primeNumbers.filter({ (m...n).contains($0) })
-.map { String($0) }
-.joined(separator: "\n")
-
 print(ans)
