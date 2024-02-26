@@ -1,24 +1,13 @@
-let x = Int(readLine()!)!
-var fractions: [(Int, Int)] = []
-var line = 0
+var x = Int(readLine()!)!
+var fractionLine = 1
 
-while fractions.count < x {
-    line += 1
-
-    var cur = 0
-    var pair: Int { line - cur }
-
-    if line % 2 == 0 {
-        for num in 1...line {
-            fractions.append((num, pair))
-            cur += 1
-        }
-    } else {
-        for num in 1...line {
-            fractions.append((pair, num))
-            cur += 1
-        }
-    }
+while x > fractionLine {
+    x -= fractionLine
+    fractionLine += 1
 }
 
-print("\(fractions[x-1].0)/\(fractions[x-1].1)")
+if fractionLine % 2 == 0 {
+    print("\(x)/\(fractionLine-x+1)")
+} else {
+    print("\(fractionLine-x+1)/\(x)")
+}
