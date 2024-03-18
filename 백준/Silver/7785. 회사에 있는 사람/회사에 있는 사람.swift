@@ -1,11 +1,13 @@
-var dictionary: [String: String] = [:]
+var set: Set<String> = []
 for _ in 0..<Int(readLine()!)! {
     let input = readLine()!.split(separator: " ").map { String($0) }
-    dictionary[input[0]] = input[1]
+    if input[1] == "enter" {
+        set.insert(input[0])
+    } else {
+        set.remove(input[0])
+    }
 }
-
 var ans = ""
-dictionary.filter { $0.value == "enter" }
-    .sorted(by: { $0.key > $1.key })
-    .forEach { ans += $0.key + "\n" }
+set.sorted(by: >)
+    .forEach { ans += $0 + "\n" }
 print(ans)
