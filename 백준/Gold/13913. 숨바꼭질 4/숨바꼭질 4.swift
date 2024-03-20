@@ -49,11 +49,10 @@ var times: [(time: Int, before: Int)] = .init(repeating: (-1, -1), count: maximu
 times[n] = (0, -1)
 queue.push(n)
 
-while let cur = queue.pop() {
-    let dx = [cur * 2, cur + 1, cur - 1]
+while times[k].time == -1, let cur = queue.pop() {
+    let dx = [cur + 1, cur - 1, cur * 2]
 
-    for index in 0..<3 {
-        let nx = dx[index]
+    for nx in dx {
         if !(0...maximum ~= nx) || times[nx].time != -1 { continue }
         times[nx] = (times[cur].time + 1, cur)
         queue.push(nx)
