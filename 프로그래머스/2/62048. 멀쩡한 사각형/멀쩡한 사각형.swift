@@ -3,9 +3,12 @@ import Foundation
 func solution(_ w:Int, _ h:Int) -> Int64{    
     var answer = 0
     
-    for row in 1...w {
-        answer += (w - row) * h / w
+    func gcd(_ a: Int, _ b: Int) -> Int {
+        if b == 0 { return a }
+        return gcd(b, a % b)
     }
     
-    return Int64(answer * 2)
+    answer = w * h - (w + h - gcd(w, h))
+    
+    return Int64(answer)
 }
