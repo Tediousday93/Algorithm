@@ -51,25 +51,20 @@ func solution() {
         graph[input[0]].append(input[1])
         graph[input[1]].append(input[0])
     }
+    graph = graph.map { $0.sorted() }
     
-    func dfs() -> String {
-        var vis: [Bool] = .init(repeating: false, count: nodeCount + 1)
-        var stack: [Int] = []
-        var visited: [String] = []
-        stack.append(startingNode)
+    var vis: [Bool] = .init(repeating: false, count: nodeCount + 1)
+    var dfsResult: [String] = []
+    
+    func dfs(node: Int) {
+        if vis[node] { return }
+        dfsResult.append(String(node))
+        vis[node] = true
         
-        while let cur = stack.popLast() {
-            if vis[cur] { continue }
-            vis[cur] = true
-            visited.append(String(cur))
-            
-            for next in graph[cur].sorted(by: >) {
-                if vis[next] { continue }
-                stack.append(next)
-            }
+        for next in graph[node] {
+            if vis[next] { continue }
+            dfs(node: next)
         }
-        
-        return visited.joined(separator: " ")
     }
     
     func bfs() -> String {
@@ -80,7 +75,7 @@ func solution() {
         vis[startingNode] = true
         
         while let cur = queue.pop() {
-            for next in graph[cur].sorted() {
+            for next in graph[cur] {
                 if vis[next] { continue }
                 visited.append(String(next))
                 queue.push(next)
@@ -91,7 +86,8 @@ func solution() {
         return visited.joined(separator: " ")
     }
     
-    let answer = dfs() + "\n" + bfs()
+    dfs(node: startingNode)
+    let answer =  dfsResult.joined(separator: " ") + "\n" + bfs()
     print(answer)
 }
 solution()
