@@ -62,7 +62,6 @@ func solution() {
         vis[node] = true
         
         for next in graph[node] {
-            if vis[next] { continue }
             dfs(node: next)
         }
     }
