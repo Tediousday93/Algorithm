@@ -73,6 +73,7 @@ func solution() {
         for index in $0.element {
             childrenNames.append(names[index])
         }
+        childrenNames.sort()
         let info = "\(parentName) \(childrenCount) \(childrenNames.joined(separator: " "))"
         informations.append(info)
     }
