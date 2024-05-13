@@ -1,5 +1,3 @@
-typealias Edge = (cost: Int, node1: Int, node2: Int)
-
 let testCount = Int(readLine()!)!
 var result: [String] = []
 
@@ -13,58 +11,39 @@ func excuteTest() -> String {
     let nm = readLine()!.split(separator: " ").compactMap { Int($0) }
     let n = nm[0]
     let m = nm[1]
-    let nodes: [Int] = .init(1...n)
-    var edges: [Edge] = []
+    var parents: [Int] = .init(0...n)
+    var rank: [Int] = .init(repeating: 0, count: n+1)
+    var ans = 0
 
     for _ in 0..<m {
         let input = readLine()!.split(separator: " ").compactMap { Int($0) }
-        edges.append((0, input[0], input[1]))
+        if find(input[0], parents: &parents) != find(input[1], parents: &parents) {
+            union(input[0], input[1], parents: &parents, rank: &rank)
+            ans += 1
+        }
     }
 
-    let mstEdges = kruskal(nodes: nodes, edges: edges)
-    return String(mstEdges.count)
+    return String(ans)
 }
 
-func kruskal(nodes: [Int], edges: [Edge]) -> [Edge] {
-    var result: [Edge] = []
-    var edges = edges
-    var rank: [Int: Int] = [:]
-    var parent: [Int: Int] = [:]
+func find(_ node: Int, parents: inout [Int]) -> Int {
+    if parents[node] == node { return node }
+    parents[node] = find(parents[node], parents: &parents)
+    return parents[node]
+}
 
-    for node in nodes {
-        rank[node] = 0
-        parent[node] = node
-    }
+func union(_ x: Int, _ y: Int, parents: inout [Int], rank: inout [Int]) {
+    let rootX = find(x, parents: &parents)
+    let rootY = find(y, parents: &parents)
 
-    func find(_ node: Int) -> Int {
-        if parent[node]! == node { return node }
-        parent[node] = find(parent[node]!)
-        return parent[node]!
-    }
+    if rootX == rootY { return }
 
-    func union(_ x: Int, _ y: Int) {
-        let rootX = find(x)
-        let rootY = find(y)
-
-        if rootX == rootY { return }
-
-        if rank[rootX]! < rank[rootY]! {
-            parent[rootX] = rootY
-        } else {
-            parent[rootY] = rootX
-            if rank[rootX]! == rank[rootY]! {
-                rank[rootX]! += 1
-            }
+    if rank[rootX] < rank[rootY] {
+        parents[rootX] = rootY
+    } else {
+        parents[rootY] = rootX
+        if rank[rootX] == rank[rootY] {
+            rank[rootX] += 1
         }
     }
-
-    while result.count < nodes.count - 1 {
-        let edge = edges.removeLast()
-        if find(edge.node1) != find(edge.node2) {
-            union(edge.node1, edge.node2)
-            result.append(edge)
-        }
-    }
-
-    return result
 }
