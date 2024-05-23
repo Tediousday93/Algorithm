@@ -11,17 +11,11 @@ var distance: [[Int]] = .init(
     repeating: [Int](repeating: INF, count: n+1),
     count: n+1
 )
-var next: [[Int]] = .init(
-    repeating: [Int](repeating: -1, count: n+1),
-    count: n+1
-)
 for _ in 0..<r {
     let input = readLine()!.split(separator: " ").compactMap { Int($0) }
     let (a, b, l) = (input[0], input[1], input[2])
     distance[a][b] = min(distance[a][b], l)
     distance[b][a] = min(distance[b][a], l)
-    next[a][b] = b
-    next[b][a] = a
 }
 for i in 1...n {
     distance[i][i] = 0
@@ -33,7 +27,6 @@ for k in 1...n {
             let new = distance[i][k] + distance[k][j]
             if new < distance[i][j] {
                 distance[i][j] = new
-                next[i][j] = next[i][k]
             }
         }
     }
@@ -48,6 +41,7 @@ for x in 1...n {
             count += itemCount[y]
         }
     }
+
     gettableItemCount.append(count)
 }
 
