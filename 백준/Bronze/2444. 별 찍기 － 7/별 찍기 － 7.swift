@@ -4,15 +4,9 @@ let star = "*"
 let space = " "
 var lines: [String] = .init(repeating: "", count: total)
 for i in 0..<n-1 {
-    let spaceCount = abs(n - i - 1)
+    let spaceCount = n - i - 1
     let starCount = 2 * (i+1) - 1
-    var curLine = ""
-    for _ in 0..<spaceCount {
-        curLine += space
-    }
-    for _ in 0..<starCount {
-        curLine += star
-    }
+    var curLine = String(repeating: space, count: spaceCount) + String(repeating: star, count: starCount)
     lines[i] = curLine
     lines[total - i - 1] = curLine
 }
