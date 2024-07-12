@@ -1,0 +1,1 @@
+print("\(Int(readLine()!)!)\n1")
