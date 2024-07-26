@@ -2,14 +2,15 @@ import Foundation
 
 let io = FileIO()
 let n = io.readInt()
-var numbers: [Int] = []
+var numbers: [Int] = .init(repeating: 0, count: 10005)
 var ans = ""
 
 for _ in 0..<n {
-    numbers.append(io.readInt())
+    numbers[io.readInt()] += 1
 }
-numbers.sort(by: <)
-numbers.forEach { ans += "\($0)\n"}
+for i in 1...10000 {
+    ans += String(repeating: "\(i)\n", count: numbers[i])
+}
 print(ans)
 
 final class FileIO {
