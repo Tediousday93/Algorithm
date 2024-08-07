@@ -34,15 +34,15 @@ func isPrimeArr() -> [Bool] {
 
 func partition(of num: Int) -> Int {
     var count = 0
-    var curPrime = 2
+    var cur = 2
 
-    while curPrime <= num / 2 {
-        if !isPrime[curPrime] {
-            curPrime += 1
+    while cur <= num / 2 {
+        if !isPrime[cur] {
+            cur += 1
             continue
         }
-        if isPrime[num - curPrime] { count += 1 }
-        curPrime += 1
+        if isPrime[num - cur] { count += 1 }
+        cur += 1
     }
 
     return count
