@@ -2,14 +2,12 @@ import Foundation
 
 var results: [String] = []
 while let input = readLine(), let n = Int(input) {
-    var line = String(repeating: "-", count: Int(pow(Double(3), Double(n))))
-    results.append(recursion(n: n, line: line))
+    results.append(recursion(n: n))
 }
 print(results.joined(separator: "\n"))
 
-func recursion(n: Int, line: String) -> String {
+func recursion(n: Int) -> String {
     if n == 0 { return "-" }
-    let dashLine = String(repeating: "-", count: line.count / 3)
-    let spaceLine = String(repeating: " ", count: line.count / 3)
-    return recursion(n: n-1, line: dashLine) + spaceLine + recursion(n: n-1, line: dashLine)
+    let spaceLine = String(repeating: " ", count: Int(pow(Double(3), Double(n))) / 3)
+    return recursion(n: n-1) + spaceLine + recursion(n: n-1)
 }
